@@ -4,6 +4,7 @@ set(PROJECT_NAME TSP)
 
 project(${PROJECT_NAME})
 
+set(CMAKE_CXX_FLAGS "-g -Wall -Werror -Wno-missing-braces -pedantic -Wshadow")
 set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB_RECURSE HEADER "include/*.h" "src/.hpp")
