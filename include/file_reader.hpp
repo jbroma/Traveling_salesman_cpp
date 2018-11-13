@@ -32,7 +32,7 @@ std::filesystem::path ValidatePath(std::string& path)
 } // unnamed namespace
 
 template <class T>
-bool Load(std::string &&path, T func)
+bool Load(std::string&& path, T&& func)
 {
     std::ifstream file;
     AllowExceptions(file);
