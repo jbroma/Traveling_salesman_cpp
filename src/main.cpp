@@ -18,7 +18,7 @@ int main() {
     };
     A example;
     std::function<void(std::ifstream&)> xd = std::bind(&A::func, example, std::placeholders::_1);
-    std::cout << fr::FileReader<void,std::ifstream&>::Load("", xd) << std::endl;
+    std::cout << fr::Load("/home/jroma/ATTENDANCE.txt", xd) << std::endl;
     return 0;
 }
 

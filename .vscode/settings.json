@@ -50,6 +50,7 @@
         "complex": "cpp",
         "unordered_set": "cpp",
         "thread": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "filesystem": "cpp"
     }
 }
