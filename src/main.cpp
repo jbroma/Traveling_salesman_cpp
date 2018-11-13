@@ -11,12 +11,14 @@ int main() {
         int a,b,c;
         void func(std::ifstream&) {
             a = 5;
+            b = 0;
+            c = 5;
             std::cout << a << b << c << std::endl;
         }
     };
     A example;
     std::function<void(std::ifstream&)> xd = std::bind(&A::func, example, std::placeholders::_1);
-    std::cout << fr::FileReader<void,std::ifstream&>::Load("~/notes", xd) << std::endl;
+    std::cout << fr::FileReader<void,std::ifstream&>::Load("", xd) << std::endl;
     return 0;
 }
 

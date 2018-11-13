@@ -42,7 +42,7 @@ bool FileReader<T,U>::Load(std::string&& path, std::function<T(U)> func)
     }
     catch (std::ios_base::failure& e)
     {
-        std::cerr << FS_ERROR << std::endl;
+        std::cerr << FS_ERROR << std::endl << e.what() << std::endl;
         return false;
     }
     catch (std::invalid_argument& e)
@@ -63,8 +63,9 @@ void FileReader<T,U>::AllowExceptions(std::ifstream& file)
 template<typename T, typename U>
 typename std::filesystem::path FileReader<T,U>::ValidatePath(std::string& path)
 {
-    if(std::filesystem::exists(path))
-        return std::filesystem::path(path); 
+    std::filesystem::path path_{path};
+    if(std::filesystem::exists(path_))
+        return path_; 
     else throw std::invalid_argument(INVALID_PATH);
     return {};
 }
