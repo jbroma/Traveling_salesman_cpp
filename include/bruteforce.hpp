@@ -11,7 +11,6 @@ class BruteForce
     private:
     std::unique_ptr<mg::Graph>& graph_;
 
-
     public:
     BruteForce() = delete;
     BruteForce(std::unique_ptr<mg::Graph>& graph);

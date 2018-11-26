@@ -9,6 +9,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
 
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON)  
+set(Boost_USE_STATIC_RUNTIME OFF) 
+
 find_package(Boost 1.60 REQUIRED COMPONENTS graph)
 
 if(Boost_FOUND)
@@ -20,7 +24,12 @@ endif()
 file(GLOB_RECURSE HEADER "include/*.h" "include/.hpp")
 file(GLOB_RECURSE SOURCE "src/*.cpp")
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE})
+
+target_include_directories(${PROJECT_NAME}
+                            PRIVATE 
+                            ${Boost_INCLUDE_DIRS}
+)
 
 target_link_libraries(${PROJECT_NAME} 
                         PRIVATE

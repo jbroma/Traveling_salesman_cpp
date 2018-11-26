@@ -51,6 +51,8 @@
         "unordered_set": "cpp",
         "thread": "cpp",
         "codecvt": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "condition_variable": "cpp",
+        "mutex": "cpp"
     }
 }

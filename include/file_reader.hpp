@@ -13,14 +13,14 @@ const std::string FS_ERROR = "Filestream error (OPEN/READ)";
 namespace
 {
 
-void AllowExceptions(std::ifstream &file)
+void allow_exceptions(std::ifstream &file)
 {
-    std::ios_base::iostate exceptionMask = file.exceptions() | std::ios::failbit;
-    file.exceptions(exceptionMask);
+    std::ios_base::iostate exception_mask = file.exceptions() | std::ios::failbit;
+    file.exceptions(exception_mask);
     return;
 }
 
-std::filesystem::path ValidatePath(std::string& path)
+std::filesystem::path validate_path(std::string& path)
 {
     std::filesystem::path fp{path};
     if(std::filesystem::exists(fp))
@@ -32,13 +32,13 @@ std::filesystem::path ValidatePath(std::string& path)
 } // unnamed namespace
 
 template <class T>
-bool Load(std::string&& path, T&& func)
+bool load(std::string&& path, T&& func)
 {
     std::ifstream file;
-    AllowExceptions(file);
+    allow_exceptions(file);
     try
     {
-        file.open(ValidatePath(path));
+        file.open(validate_path(path));
         func(file);
         file.close();
         return true;
