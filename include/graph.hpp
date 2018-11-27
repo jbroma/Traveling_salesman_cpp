@@ -1,19 +1,16 @@
 #pragma once
-#include <boost/config.hpp>
 #include <boost/graph/adjacency_matrix.hpp>
-#include <boost/graph/graph_utility.hpp>
-#include <boost/graph/graph_traits.hpp>
-#include <boost/property_map/property_map.hpp>
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <numeric>
 #include <vector>
-#include <iterator>
 #include <random>
-#include <boost/graph/random.hpp>
-#include <boost/random.hpp>
+#include <future>
+
+#include "file_reader.hpp"
 
 namespace boost {
   enum edge_tsp_path_t { edge_tspPath };
@@ -28,11 +25,14 @@ using adj_matrix = boost::adjacency_matrix<boost::directedS, boost::no_property,
 
 class Graph
 {
+    
+    const std::string names{"ABCDEFGHIJKLMNOPQRSTUWXYZ"};
     adj_matrix graph_;
 
   public:
-    Graph();
+    Graph() = delete;
     Graph(uint32_t vertices);
+    Graph(std::string&& path);
     ~Graph() = default;
 
     bool operator==(const Graph& rhs) const;
@@ -45,9 +45,7 @@ class Graph
     void print_vertices(std::ostream& os);
     void print_edges(std::ostream& os);
     void print_out_edges(std::ostream& os);
-    void gen_random_complete_graph(uint32_t vertices, boost::minstd_rand& gen);
-
-
+    void gen_random_complete_graph();
 };
 
 

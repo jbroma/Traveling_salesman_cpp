@@ -8,8 +8,6 @@
 #include "../include/graph.hpp"
 // #include "../include/file_reader.hpp"
 
-boost::minstd_rand gen;
-
 void test();
 void test2();
 
@@ -59,11 +57,18 @@ void test() {
 }
 
 void test2() {
-    auto gr = std::make_unique<mg::Graph>();
-    gr->gen_random_complete_graph(20, gen);
+    std::unique_ptr<mg::Graph> gr;
+    try 
+    {
+        gr = std::make_unique<mg::Graph>("test_data/test2.txt");
+    }
+    catch (std::runtime_error& e)
+    {
+        std::cerr << e.what() << std::endl;
+        std::exit(1);
+    }
+    //gr->gen_random_complete_graph();
     gr->print_vertices(std::cout);
     gr->print_edges(std::cout);
     gr->print_out_edges(std::cout);
-    std::cout << gr->get_esize() << std::endl;
-
 }
