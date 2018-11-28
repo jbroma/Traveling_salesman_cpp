@@ -60,12 +60,12 @@ void test2() {
     std::unique_ptr<mg::Graph> gr;
     try 
     {
-        gr = std::make_unique<mg::Graph>("test_data/test2.txt");
+        gr = std::make_unique<mg::Graph>("test_data/test.txt");
     }
     catch (std::runtime_error& e)
     {
-        std::cerr << e.what() << std::endl;
-        std::exit(1);
+        // std::cerr << e.what() << std::endl;
+        // std::exit(1);
     }
     //gr->gen_random_complete_graph();
     gr->print_vertices(std::cout);

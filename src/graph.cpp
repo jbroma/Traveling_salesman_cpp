@@ -36,7 +36,7 @@ void Graph::load_graph(std::ifstream& file)
             if(i != j)
                 add_edge(i,j,*it++);
             else if(!file.eof())
-                it++;
+                ++it;
         }    
     }
 }
@@ -75,7 +75,7 @@ void Graph::print_out_edges(std::ostream& os)
                 os  << names[boost::target(e_it, graph_)] 
                     << "("
                     << weightmap[e_it]
-                    << ") ";
+                    << ")\t";
             });
             os << std::endl;
         }   
