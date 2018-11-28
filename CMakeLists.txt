@@ -13,7 +13,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)  
 set(Boost_USE_STATIC_RUNTIME OFF) 
 
-find_package(Boost 1.60 REQUIRED COMPONENTS graph)
+find_package(Boost 1.60 REQUIRED COMPONENTS graph program_options)
 
 if(Boost_FOUND)
     message ("boost found")
@@ -34,4 +34,5 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} 
                         PRIVATE
                         Boost::graph
+                        Boost::program_options
                         stdc++fs)
