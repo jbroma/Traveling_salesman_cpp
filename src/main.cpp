@@ -93,7 +93,7 @@ int main(int argc, char** argv)
      */ 
     namespace po = boost::program_options; 
     po::options_description desc("Options"); 
-    desc.add_options() 
+    desc.add_options()
       ("help,h", "Print help messages")
       ("") 
       ("add", "additional options") 
@@ -101,21 +101,6 @@ int main(int argc, char** argv)
  
     po::variables_map vm; 
     try 
-<<<<<<< HEAD
-    {
-        gr = std::make_unique<mg::Graph>("test_data/test.txt");
-    }
-    catch (std::runtime_error& e)
-    {
-        // std::cerr << e.what() << std::endl;
-        // std::exit(1);
-    }
-    //gr->gen_random_complete_graph();
-    gr->print_vertices(std::cout);
-    gr->print_edges(std::cout);
-    gr->print_out_edges(std::cout);
-}
-=======
     { 
       po::store(po::parse_command_line(argc, argv, desc),  
                 vm); // can throw 
@@ -153,4 +138,3 @@ int main(int argc, char** argv)
   return SUCCESS; 
  
 } // main 
->>>>>>> 112ee4362cfe738cd597ad9422de873694cd9289

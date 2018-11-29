@@ -6,9 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <numeric>
-#include <vector>
 #include <random>
-#include <future>
 
 #include "file_reader.hpp"
 
@@ -27,16 +25,12 @@ class Graph
 {
     
     const std::string names{"ABCDEFGHIJKLMNOPQRSTUWXYZ"};
-    adj_matrix graph_;
+    std::unique_ptr<adj_matrix> graph_;
 
   public:
-    Graph() = delete;
     Graph(uint32_t vertices);
     Graph(std::string&& path);
     ~Graph() = default;
-
-    bool operator==(const Graph& rhs) const;
-    bool operator!=(const Graph& rhs) const;
 
     bool add_edge(uint32_t source, uint32_t target, uint32_t weight);
     uint32_t get_vsize();

@@ -6,6 +6,7 @@
 
 class ProgramOptions
 {
-    namespace po = boost::program_options;
-
+  public:
+    ProgramOptions(int argc, char **argv);
+    
 };

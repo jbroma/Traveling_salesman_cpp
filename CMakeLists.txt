@@ -15,12 +15,6 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 
 find_package(Boost 1.60 REQUIRED COMPONENTS graph program_options)
 
-if(Boost_FOUND)
-    message ("boost found")
-else()
-    message (FATAL_ERROR "Cannot find Boost")
-endif()
-
 file(GLOB_RECURSE HEADER "include/*.h" "include/.hpp")
 file(GLOB_RECURSE SOURCE "src/*.cpp")
 

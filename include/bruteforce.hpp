@@ -12,18 +12,14 @@ class BruteForce
     std::unique_ptr<mg::Graph>& graph_;
 
     public:
-    BruteForce() = delete;
     BruteForce(std::unique_ptr<mg::Graph>& graph);
-    BruteForce(const BruteForce&) = delete;
-    BruteForce(BruteForce&&) = delete;
-    BruteForce& operator=(const BruteForce&) = delete;
-    BruteForce& operator=(BruteForce&&) = delete;
     ~BruteForce() = default;
-
 
     std::string GetResult() const;
     void Run();
-
+    void Permutate(std::vector<uint32_t> &perms, uint32_t begin, uint32_t end, Path &p);
+    void UpdatePath(std::vector<uint32_t> &perms, Path &p);
+    uint32_t GetCost(const std::vector<uint32_t> &perms)
 };
 
 
