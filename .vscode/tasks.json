@@ -64,7 +64,7 @@
             "options": {
                 "cwd": "${workspaceRoot}/build.ninja"
             },
-            "args":[
+            "args": [
                 "-v"
             ],
             "dependsOn": "cmake-clang+ninja"
@@ -88,5 +88,5 @@
                 "showReuseMessage": false
             }
         },
-        ]
+    ]
 }

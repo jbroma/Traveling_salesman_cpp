@@ -1,48 +1,52 @@
 #include "../include/bruteforce.hpp"
+#include <iterator>
 
-namespace alg
+namespace alg {
+
+BruteForce::BruteForce(mg::Graph& graph)
+    : graph_(graph)
 {
+}
 
-BruteForce::BruteForce(std::unique_ptr<mg::Graph> &graph) : graph_(graph) {}
-
-void BruteForce::Run()
+Path BruteForce::run()
 {
-    Path p{ Path(std::vector<int>(), INT_MAX, "BF") };
-    auto perms = std::vector<int>(graph_->get_vsize() + 1, 0);
-    std::iota(perms.begin(), perms.end() - 1, 0);
-    Permutate(perms, 1, graph_->get_vsize() - 1, p);
+    Path p{ Path(std::vector<uint32_t>(), INT_MAX, "BF") };
+    auto sequence = std::vector<uint32_t>(graph_.get_vsize() + 1, 0);
+    std::iota(sequence.begin(), sequence.end() - 1, 0);
+    permutate(sequence, 1, graph_.get_vsize() - 1, p);
     return p;
 }
 
-void BruteForce::Permutate(std::vector<int> &perms, int begin, int end, Path &p)
+void BruteForce::permutate(std::vector<uint32_t>& sequence, uint32_t begin, uint32_t end, Path& p)
 {
     if (begin == end)
-        UpdatePath(perms, p);
-    else
-    {
-        for (int i{begin}; i <= end; ++i)
-        {
-            std::swap(perms[begin], perms[i]);
-            Permutate(perms, begin + 1, end, p);
-            std::swap(perms[begin], perms[i]);
+        update_path(sequence, p);
+    else {
+        for (uint32_t i{ begin }; i <= end; ++i) {
+            std::swap(sequence[begin], sequence[i]);
+            permutate(sequence, begin + 1, end, p);
+            std::swap(sequence[begin], sequence[i]);
         }
     }
 }
 
-void BruteForce::UpdatePath(std::vector<int> &perms, Path &p)
+void BruteForce::update_path(std::vector<uint32_t>& sequence, Path& p)
 {
-    int updated_cost{GetCost(perms)};
-    if (updated_cost < p.cost_)
-    {
-        p.path_ = perms;
+    uint32_t updated_cost{ get_cost(sequence) };
+    if (updated_cost < p.cost_) {
+        p.path_ = sequence;
         p.cost_ = updated_cost;
     }
 }
 
-int BruteForce::GetCost(const std::vector<int> &perms)
+uint32_t BruteForce::get_cost(const std::vector<uint32_t>& perms)
 {
-    // todo
-    return std::accumulate(perms.begin(), perms.end(), 0);
+    auto prev = perms.begin();
+    return std::accumulate(perms.begin() + 1, perms.end(), 0, [&](auto sum, auto current) -> auto {
+        sum += graph_.get_weight(*prev, current);
+        ++prev;
+        return sum;
+    });
 }
 
 } //namespace alg

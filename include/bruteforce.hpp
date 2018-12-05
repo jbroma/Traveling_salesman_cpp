@@ -1,27 +1,24 @@
 #pragma once
-#include <string>
-#include <memory>
 #include "graph.hpp"
+#include "path.hpp"
+#include <memory>
+#include <string>
 
-namespace alg 
-{
+namespace alg {
 
-class BruteForce
-{
-    private:
-    std::unique_ptr<mg::Graph>& graph_;
+class BruteForce {
+private:
+    mg::Graph& graph_;
 
-    public:
-    BruteForce(std::unique_ptr<mg::Graph>& graph);
+public:
+    BruteForce(mg::Graph& graph);
     ~BruteForce() = default;
 
-    std::string GetResult() const;
-    void Run();
-    void Permutate(std::vector<uint32_t> &perms, uint32_t begin, uint32_t end, Path &p);
-    void UpdatePath(std::vector<uint32_t> &perms, Path &p);
-    uint32_t GetCost(const std::vector<uint32_t> &perms)
+    //std::string get_result() const;
+    Path run();
+    void permutate(std::vector<uint32_t>& perms, uint32_t begin, uint32_t end, Path& p);
+    void update_path(std::vector<uint32_t>& perms, Path& p);
+    uint32_t get_cost(const std::vector<uint32_t>& perms);
 };
 
-
 } // namespace alg
-

@@ -31,7 +31,7 @@
 // void test() {
 //     enum { A, B, C, D, E, F, N };
 //     const char* name = "ABCDEF";
-    
+
 //     typedef boost::adjacency_matrix<boost::directedS> Graph;
 //     Graph g(N);
 //     boost::add_edge(B, C, g);
@@ -48,8 +48,7 @@
 //     std::cout << std::endl;
 
 //     std::cout << "edge set: ";
-//     boost::print_edges(g, name);
-//     std::cout << std::endl;
+//     boost::print
 
 //     std::cout << "out-edges: " << std::endl;
 //     boost::print_graph(g, name);
@@ -58,7 +57,7 @@
 
 // void test2() {
 //     std::unique_ptr<mg::Graph> gr;
-//     try 
+//     try
 //     {
 //         gr = std::make_unique<mg::Graph>("test_data/test2.txt");
 //     }
@@ -72,69 +71,9 @@
 //     gr->print_edges(std::cout);
 //     gr->print_out_edges(std::cout);
 // }
-#include "boost/program_options.hpp" 
- 
-#include <iostream> 
-#include <string> 
+#include "../include/program_options.hpp"
 
-namespace 
-{ 
-  const std::size_t ERROR_IN_COMMAND_LINE = 1; 
-  const std::size_t SUCCESS = 0; 
-  const std::size_t ERROR_UNHANDLED_EXCEPTION = 2; 
- 
-} // namespace 
- 
-int main(int argc, char** argv) 
-{ 
-  try 
-  { 
-    /** Define and parse the program options 
-     */ 
-    namespace po = boost::program_options; 
-    po::options_description desc("Options"); 
-    desc.add_options()
-      ("help,h", "Print help messages")
-      ("") 
-      ("add", "additional options") 
-      ("like", "this"); 
- 
-    po::variables_map vm; 
-    try 
-    { 
-      po::store(po::parse_command_line(argc, argv, desc),  
-                vm); // can throw 
- 
-      /** --help option 
-       */ 
-      if ( vm.count("help") || vm.empty() ) 
-      { 
-        std::cout << "Basic Command Line Parameter App" << std::endl 
-                  << desc << std::endl; 
-        return SUCCESS; 
-      } 
- 
-      po::notify(vm); // throws on error, so do after help in case 
-                      // there are any problems 
-    } 
-    catch(po::error& e) 
-    { 
-      std::cerr << "ERROR: " << e.what() << std::endl << std::endl; 
-      std::cerr << desc << std::endl; 
-      return ERROR_IN_COMMAND_LINE; 
-    } 
- 
-    // application code here // 
- 
-  } 
-  catch(std::exception& e) 
-  { 
-    std::cerr << "Unhandled Exception reached the top of main: " 
-              << e.what() << ", application will now exit" << std::endl; 
-    return ERROR_UNHANDLED_EXCEPTION; 
- 
-  } 
- 
-  return SUCCESS; 
- 
-} // main 
+int main(int argc, char** argv)
+{
+    return ProgramOptions(argc, argv).run();
+}

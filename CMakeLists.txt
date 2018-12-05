@@ -4,7 +4,17 @@ set(PROJECT_NAME TSP)
 
 project(${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-g -Wall -Werror -Wno-missing-braces -pedantic")
+option (FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)." ON)
+
+if (${FORCE_COLORED_OUTPUT})
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+       add_compile_options (-fdiagnostics-color=always)
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+       add_compile_options (-fcolor-diagnostics)
+    endif ()
+endif ()
+
+set(CMAKE_CXX_FLAGS "-Ofast -Wall -Werror -Wno-missing-braces -pedantic")
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)

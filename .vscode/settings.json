@@ -57,6 +57,7 @@
         "iomanip": "cpp",
         "cinttypes": "cpp",
         "future": "cpp",
-        "strstream": "cpp"
+        "strstream": "cpp",
+        "string": "cpp"
     }
 }
