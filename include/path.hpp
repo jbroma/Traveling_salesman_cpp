@@ -6,6 +6,11 @@
 
 class Path {
 
+    void pretty_string(std::string& path, uint32_t line_len);
+    std::string pretty_title(const std::string& title, const uint32_t line_len) const;
+    std::string get_path_str();
+    std::string get_cost_str();
+
 public:
     std::vector<uint32_t> path_;
     uint32_t cost_;
@@ -16,14 +21,6 @@ public:
     ~Path() = default;
 
     void add_to_path(const uint32_t node, const uint32_t cost);
-
     uint32_t get_prev_city();
-
     std::string to_string();
-
-private:
-    void pretty_string(std::string& path, uint32_t line_len);
-    std::string pretty_title(const std::string& title, const uint32_t line_len) const;
-    std::string get_path_str();
-    std::string get_cost_str();
 };

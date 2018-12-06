@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/TSP",
             "args": [
-                "-i"
+                "1231231231"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

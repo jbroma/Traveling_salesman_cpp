@@ -2,6 +2,7 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "2.0.0",
+    "_runner": "terminal",
     "tasks": [
         {
             "label": "cmake-gcc",
@@ -13,6 +14,14 @@
             "args": [
                 ".."
             ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
         },
         {
             "label": "make",
@@ -21,7 +30,19 @@
             "options": {
                 "cwd": "${workspaceRoot}/build"
             },
-            "dependsOn": "cmake-gcc"
+            "dependsOn": "cmake-gcc",
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": "absolute"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
         },
         {
             "label": "build",
@@ -30,16 +51,16 @@
                 "cwd": "${workspaceRoot}/build"
             },
             "group": {
-                "kind": "test",
+                "kind": "build",
                 "isDefault": true
             },
             "dependsOn": "make",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": false
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
             }
         },
         {
@@ -76,7 +97,7 @@
                 "cwd": "${workspaceRoot}/build.ninja"
             },
             "group": {
-                "kind": "build",
+                "kind": "test",
                 "isDefault": true
             },
             "dependsOn": "ninja",
@@ -84,7 +105,7 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "dedicated",
+                "panel": "shared",
                 "showReuseMessage": false
             }
         },

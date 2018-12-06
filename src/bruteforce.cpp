@@ -43,9 +43,7 @@ uint32_t BruteForce::get_cost(const std::vector<uint32_t>& perms)
 {
     auto prev = perms.begin();
     return std::accumulate(perms.begin() + 1, perms.end(), 0, [&](auto sum, auto current) -> auto {
-        sum += graph_.get_weight(*prev, current);
-        ++prev;
-        return sum;
+        return sum + graph_.get_weight(*(prev++), current);
     });
 }
 

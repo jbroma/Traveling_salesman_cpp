@@ -32,7 +32,7 @@ class Graph {
 
 public:
     Graph(const uint32_t vertices);
-    Graph(const std::string&& path);
+    Graph(const std::string& path);
     ~Graph() = default;
 
     bool add_edge(const uint32_t source, const uint32_t target, const uint32_t weight);

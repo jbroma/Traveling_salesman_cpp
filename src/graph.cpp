@@ -8,13 +8,12 @@ Graph::Graph(const uint32_t vertices)
 {
 }
 
-Graph::Graph(const std::string&& path)
+Graph::Graph(const std::string& path)
     : graph_(std::make_unique<adj_matrix>(0))
     , weight_map_(boost::get(boost::edge_weight, *graph_))
 {
     if (!fr::load(path, [obj = this](auto& file) { obj->load_graph(file); }))
         throw std::runtime_error("Failed to load the graph.");
-    //;
 }
 
 bool Graph::add_edge(const uint32_t source, const uint32_t target, const uint32_t weight)
@@ -131,7 +130,8 @@ void Graph::gen_random_complete_graph()
         auto target_v_pair = boost::vertices(*graph_);
         std::for_each(target_v_pair.first, target_v_pair.second, [&](auto target) {
             if (source != target)
-                add_edge(source, target, weight_dist(gen));
+                if (!add_edge(source, target, weight_dist(gen)))
+                    weight_map_[boost::edge(source, target, *graph_).first] = weight_dist(gen);
         });
     });
 }
