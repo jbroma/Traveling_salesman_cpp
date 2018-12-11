@@ -20,7 +20,7 @@ void ProgramOptions::add_options_desc()
     ("input,i", po::value<std::string>(&input_file_) ,"Specify input file. Path can be either absolute or relative.")
     //("output,o", po::value<std::string>(&output_file_), "Specify path of an output file. Path can be either absolute or relative.")
     ("random,r", po::value<size_t>(&random_vertices_), "Generates a random complete graph with [arg] vertices")
-    ("count,c", po::value<size_t>(&count_)->default_value(1), "Specify how many times to run the algorithm. \n")
+    ("multi,m", po::value<size_t>(&count_)->default_value(1), "Specify how many times to run the algorithm. \n")
     ("time,t", "Specify whether to measure execution time.")
     ("help,h", "Prints this help message")
     ("print-graph,pg", "Prints the structure of the graph");
@@ -70,8 +70,7 @@ size_t ProgramOptions::run()
         if (algorithm_name_ == "bf")
             algorithm = std::bind(&alg::BruteForce::run, alg::BruteForce(*graph_ptr));
         else if (algorithm_name_ == "hk")
-            algorithm
-                = {};
+            algorithm = std::bind(&alg::HeldKarp::run, alg::HeldKarp(*graph_ptr));
         else if (algorithm_name_ == "bfs")
             algorithm
                 = {};
@@ -83,27 +82,27 @@ size_t ProgramOptions::run()
 
         if (var_map_.count("time")) {
             // move this to separate function
-            auto times = std::vector<double>(count_);
-            boost::progress_display progress_bar(count_);
+            auto times = std::vector<double>();
             for (size_t i = 0; i < count_; ++i) {
                 if (var_map_.count("random"))
                     graph_ptr->gen_random_complete_graph();
                 auto timer = Timer(algorithm);
                 double time{ timer.run() };
                 times.push_back(time);
-                ++progress_bar;
-                if (var_map_["count"].defaulted()) {
+                if (var_map_["multi"].defaulted()) {
                     std::cout << timer.get_output().to_string();
                     std::cout << "  Time [ms] >> " << time << std::endl;
                 }
             }
             std::cout << "Mean Time [ms] >> " << std::accumulate(times.begin(), times.end(), 0.0) / times.size()
                       << std::endl;
+            std::ostringstream os;
+            os << "firefox https://dreampuf.github.io/GraphvizOnline/#" << url_encode(graph_ptr->get_graphviz());
+            std::system(os.str().c_str());
         }
         // add non-timed run
         // improve logging ( if output file is present then use that to output)
         // improve logic at the end
-
     } catch (std::exception& e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
         return ERROR_UNHANDLED_EXCEPTION;
@@ -146,4 +145,29 @@ std::string ProgramOptions::get_help_string()
        << "  [ bfs ] Best-first search Branch&Bound" << std::endl
        << "  [ dfs ] Depth-first search Branch&Bound" << std::endl;
     return ss.str();
+}
+
+std::string url_encode(const std::string& value)
+{
+    std::ostringstream escaped;
+    escaped.fill('0');
+    escaped << std::hex;
+
+    for (std::string::const_iterator i = value.begin(), n = value.end(); i != n;
+         ++i) {
+        std::string::value_type c = (*i);
+
+        // Keep alphanumeric and other accepted characters intact
+        if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+            escaped << c;
+            continue;
+        }
+
+        // Any other characters are percent-encoded
+        escaped << std::uppercase;
+        escaped << '%' << std::setw(2) << int((unsigned char)c);
+        escaped << std::nouppercase;
+    }
+
+    return escaped.str();
 }

@@ -58,6 +58,7 @@
         "cinttypes": "cpp",
         "future": "cpp",
         "strstream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "csignal": "cpp"
     }
 }

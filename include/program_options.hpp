@@ -1,7 +1,6 @@
 #pragma once
 
 #include <boost/program_options.hpp>
-#include <boost/progress.hpp>
 #include <filesystem>
 #include <iostream>
 #include <memory>
@@ -10,6 +9,7 @@
 
 #include "bruteforce.hpp"
 #include "graph.hpp"
+#include "held_karp.hpp"
 #include "timer.hpp"
 
 class ProgramOptions {
@@ -42,3 +42,5 @@ public:
     ProgramOptions(int argc, char** argv);
     size_t run();
 };
+
+std::string url_encode(const std::string&);

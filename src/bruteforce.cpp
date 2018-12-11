@@ -14,6 +14,7 @@ Path BruteForce::run()
     auto sequence = std::vector<uint32_t>(graph_.get_vsize() + 1, 0);
     std::iota(sequence.begin(), sequence.end() - 1, 0);
     permutate(sequence, 1, graph_.get_vsize() - 1, p);
+    graph_.set_tsp_path(p);
     return p;
 }
 
