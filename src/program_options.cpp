@@ -72,11 +72,9 @@ size_t ProgramOptions::run()
         else if (algorithm_name_ == "hk")
             algorithm = std::bind(&alg::HeldKarp::run, alg::HeldKarp(*graph_ptr));
         else if (algorithm_name_ == "bfs")
-            algorithm
-                = {};
+            algorithm = std::bind(&alg::BranchAndBound::best_fs_run, alg::BranchAndBound(*graph_ptr));
         else if (algorithm_name_ == "dfs")
-            algorithm
-                = {};
+            algorithm = std::bind(&alg::BranchAndBound::dfs_run, alg::BranchAndBound(*graph_ptr));
         else
             throw po::validation_error(po::invalid_option_value::kind_t::invalid_option_value, "algorithm", algorithm_name_, 0);
 
@@ -87,7 +85,7 @@ size_t ProgramOptions::run()
                 if (var_map_.count("random"))
                     graph_ptr->gen_random_complete_graph();
                 auto timer = Timer(algorithm);
-                double time{ timer.run() };
+                double time { timer.run() };
                 times.push_back(time);
                 if (var_map_["multi"].defaulted()) {
                     std::cout << timer.get_output().to_string();

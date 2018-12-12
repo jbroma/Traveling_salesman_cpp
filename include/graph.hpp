@@ -1,4 +1,5 @@
 #pragma once
+
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/graphviz.hpp>
 #include <filesystem>
@@ -19,8 +20,8 @@ BOOST_INSTALL_PROPERTY(edge, tsp_path);
 
 namespace mg {
 
-const std::string NAMES { "ABCDEFGHIJKLMNOPQRSTUWXYZ" };
-const uint32_t START_VERTEX { 0 };
+const std::string NAMES{ "ABCDEFGHIJKLMNOPQRSTUWXYZ" };
+const uint32_t START_VERTEX{ 0 };
 
 using tsp_path = boost::property<boost::edge_tsp_path_t, bool>;
 using edge_properties = boost::property<boost::edge_weight_t, uint32_t, tsp_path>;
@@ -42,14 +43,19 @@ public:
 
     bool add_edge(const uint32_t source, const uint32_t target,
         const uint32_t weight);
+
     uint32_t get_vsize();
     uint32_t get_esize();
 
     uint32_t get_weight(const uint32_t source, const uint32_t target);
+    uint32_t get_weight(adj_matrix::edge_iterator& e);
+
+    adj_matrix::vertex_descriptor get_source(adj_matrix::edge_descriptor e);
+    adj_matrix::vertex_descriptor get_target(adj_matrix::edge_descriptor e);
 
     adj_matrix::vertex_iterator v_begin();
     adj_matrix::vertex_iterator v_end();
-    adj_matrix::edge_iterator e_begin();
+    std::pair<adj_matrix::edge_iterator, adj_matrix::edge_iterator> e_begin();
     adj_matrix::edge_iterator e_end();
     adj_matrix::out_edge_iterator edge_out_begin(adj_matrix::vertex_iterator& it);
     adj_matrix::out_edge_iterator edge_out_end(adj_matrix::vertex_iterator& it);

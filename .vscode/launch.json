@@ -11,9 +11,9 @@
             "program": "${workspaceFolder}/bin/TSP",
             "args": [
                 "-r",
-                "2",
+                "13",
                 "-t",
-                "hk"
+                "bfs"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 
+#include "branch_and_bound.hpp"
 #include "bruteforce.hpp"
 #include "graph.hpp"
 #include "held_karp.hpp"

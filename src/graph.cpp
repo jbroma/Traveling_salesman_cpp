@@ -28,9 +28,24 @@ uint32_t Graph::get_vsize() { return boost::num_vertices(*graph_); }
 
 uint32_t Graph::get_esize() { return boost::num_edges(*graph_); }
 
+adj_matrix::vertex_descriptor Graph::get_source(adj_matrix::edge_descriptor e)
+{
+    return boost::source(e, *graph_);
+}
+
+adj_matrix::vertex_descriptor Graph::get_target(adj_matrix::edge_descriptor e)
+{
+    return boost::target(e, *graph_);
+}
+
 uint32_t Graph::get_weight(const uint32_t source, const uint32_t target)
 {
     return boost::get(weight_map_, boost::edge(source, target, *graph_).first);
+}
+
+uint32_t Graph::get_weight(adj_matrix::edge_iterator& e)
+{
+    return boost::get(weight_map_, *e);
 }
 
 adj_matrix::vertex_iterator Graph::v_begin()
@@ -43,9 +58,9 @@ adj_matrix::vertex_iterator Graph::v_end()
     return boost::vertices(*graph_).second;
 }
 
-adj_matrix::edge_iterator Graph::e_begin()
+std::pair<adj_matrix::edge_iterator, adj_matrix::edge_iterator> Graph::e_begin()
 {
-    return boost::edges(*graph_).first;
+    return boost::edges(*graph_);
 }
 
 adj_matrix::edge_iterator Graph::e_end()
@@ -67,7 +82,7 @@ Graph::edge_out_end(adj_matrix::vertex_iterator& it)
 
 void Graph::load_graph(std::ifstream& file)
 {
-    std::istream_iterator<int> it{ file };
+    std::istream_iterator<int> it { file };
     graph_ = std::make_unique<adj_matrix>(*it++);
     for (uint32_t i = 0; i < get_vsize(); ++i) {
         for (uint32_t j = 0; j < get_vsize(); ++j) {
@@ -121,7 +136,7 @@ void Graph::gen_random_complete_graph()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> weight_dist{ 1, 100 };
+    std::uniform_int_distribution<> weight_dist { 1, 100 };
     auto source_v_pair = boost::vertices(*graph_);
     std::for_each(source_v_pair.first, source_v_pair.second, [&](auto source) {
         auto target_v_pair = boost::vertices(*graph_);
