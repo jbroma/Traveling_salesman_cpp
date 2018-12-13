@@ -40,6 +40,7 @@ Path BranchAndBound::best_fs_run()
 
 Path BranchAndBound::run(std::unique_ptr<Container>& container, Path& best_path)
 {
+    best_bound_ = u_lim::max();
     City current_city;
     while (!container->empty()) {
         current_city = container->top();

@@ -6,12 +6,12 @@ HeldKarp::HeldKarp(mg::Graph& graph)
     : graph_{ graph }
     , full_mask_{ (uint32_t(1) << graph_.get_vsize()) - uint32_t(1) }
 {
-    operations_.resize(graph_.get_vsize(), std::vector<uint32_t>((uint32_t(1) << graph_.get_vsize()) - uint32_t(1), limits::max()));
-    travel_vec_.resize(graph_.get_vsize(), std::vector<uint32_t>((uint32_t(1) << graph_.get_vsize()) - uint32_t(1), limits::max()));
 }
 
 Path HeldKarp::run()
 {
+    operations_.resize(graph_.get_vsize(), std::vector<uint32_t>((uint32_t(1) << graph_.get_vsize()) - uint32_t(1), limits::max()));
+    travel_vec_.resize(graph_.get_vsize(), std::vector<uint32_t>((uint32_t(1) << graph_.get_vsize()) - uint32_t(1), limits::max()));
     uint32_t cost{ h_k(bit_mask(1), 0) };
     auto path{ get_path(cost) };
     graph_.set_tsp_path(path);
