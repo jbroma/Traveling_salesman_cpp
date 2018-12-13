@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/bin/TSP",
             "args": [
                 "-r",
-                "13",
+                "4",
                 "-t",
                 "bfs"
             ],

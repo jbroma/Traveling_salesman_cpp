@@ -4,7 +4,7 @@ set(PROJECT_NAME TSP)
 
 project(${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-g -Wall -Werror -Wno-missing-braces -pedantic")
+set(CMAKE_CXX_FLAGS "-O3 -Wall -Werror -Wno-missing-braces -pedantic")
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)

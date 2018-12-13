@@ -1,6 +1,7 @@
 #pragma once
 #include "city.hpp"
 
+#include <iostream>
 #include <queue>
 #include <stack>
 
@@ -27,7 +28,7 @@ class Priority_Queue : public Container {
 
 public:
     Priority_Queue(city_p_queue queue)
-        : city_q{ queue } {};
+        : city_q { queue } {};
 
     City top() override { return city_q.top(); };
     void push(City city) override { city_q.push(city); };
@@ -42,7 +43,7 @@ private:
 class Stack : public Container {
 public:
     Stack(std::stack<City> city_stack)
-        : city_s{ city_stack } {};
+        : city_s { city_stack } {};
 
     City top() override { return city_s.top(); };
     void push(City city) override { city_s.push(city); };

@@ -32,7 +32,7 @@ void Reduction_Matrix::fill_column(uint32_t column)
 
 void Reduction_Matrix::reduce_matrix()
 {
-    uint32_t reduction { 0 };
+    uint32_t reduction{ 0 };
     reduction += horizontal_reduction();
     reduction += vertical_reduction();
     reduction_cost_ = reduction;
@@ -41,8 +41,8 @@ void Reduction_Matrix::reduce_matrix()
 // Reduces the matrix by the smallest factor row wise.
 uint32_t Reduction_Matrix::horizontal_reduction()
 {
-    uint32_t reduction { 0 };
-    for (auto row { matrix_.begin() }; row != matrix_.end(); ++row)
+    uint32_t reduction{ 0 };
+    for (auto row{ matrix_.begin() }; row != matrix_.end(); ++row)
         reduction += reduce_row(row);
 
     return reduction;
@@ -50,7 +50,7 @@ uint32_t Reduction_Matrix::horizontal_reduction()
 
 uint32_t Reduction_Matrix::reduce_row(std::vector<std::vector<uint32_t>>::iterator row)
 {
-    uint32_t min { *(std::min_element(row->begin(), row->end())) };
+    uint32_t min{ *(std::min_element(row->begin(), row->end())) };
     if (min != limits::max() && min != 0) {
         std::for_each(row->begin(), row->end(), [&min](uint32_t& element) {
             if (element != limits::max())
@@ -64,8 +64,8 @@ uint32_t Reduction_Matrix::reduce_row(std::vector<std::vector<uint32_t>>::iterat
 // Reduces the matrix by the smallest factor column wise.
 uint32_t Reduction_Matrix::vertical_reduction()
 {
-    uint32_t min { 0 }, reduction { 0 };
-    for (uint32_t i { 0 }; i < matrix_.size(); ++i) {
+    uint32_t min{ 0 }, reduction{ 0 };
+    for (uint32_t i{ 0 }; i < matrix_.size(); ++i) {
         min = get_column_min(i);
         if (min != limits::max() && min != 0) {
             reduction += min;
@@ -80,7 +80,7 @@ uint32_t Reduction_Matrix::vertical_reduction()
 
 uint32_t Reduction_Matrix::get_column_min(const uint32_t column) const
 {
-    uint32_t min { limits::max() };
+    uint32_t min{ limits::max() };
     for (auto& rows : matrix_) {
         if (rows[column] < min)
             min = rows[column];
@@ -95,8 +95,8 @@ uint32_t Reduction_Matrix::get_reduction_cost() const
 
 std::vector<uint32_t> Reduction_Matrix::get_neighbours(uint32_t node) const
 {
-    auto neighbours { std::vector<uint32_t>() };
-    for (uint32_t i { 0 }; i < matrix_[node].size(); ++i) {
+    auto neighbours{ std::vector<uint32_t>() };
+    for (uint32_t i{ 0 }; i < matrix_[node].size(); ++i) {
         if (matrix_[node][i] != limits::max())
             neighbours.push_back(i);
     }

@@ -2,7 +2,7 @@
 
 namespace alg {
 
-City::City(const uint32_t index, const std::vector<std::vector<uint32_t>>& matrix, const uint32_t travel_cost = 0)
+City::City(const uint32_t index, std::vector<std::vector<uint32_t>>& matrix, const uint32_t travel_cost = 0)
     : index_ { index }
     , lower_bound_ { travel_cost }
     , reduction_matrix_ { matrix }
@@ -13,7 +13,7 @@ City::City(const uint32_t index, const std::vector<std::vector<uint32_t>>& matri
     add_to_path(index, 0);
 }
 
-City::City(const City& city, const uint32_t index, const uint32_t travel_cost)
+City::City(City& city, const uint32_t index, const uint32_t travel_cost)
     : index_ { index }
     , lower_bound_ { city.lower_bound_ + travel_cost }
     , reduction_matrix_ { city.reduction_matrix_ }
@@ -55,7 +55,7 @@ std::vector<uint32_t> City::get_neighbours() const
 
 // Funkcja ograniczajaca.
 // Wypelnia wiersz z indeksem poprzednika
-// i kolumne z aktualnym indeksem wartoscia uint32_t_MAX.
+// i kolumne z aktualnym indeksem wartoscia int_max.
 // Nastepnie uruchamia redukcje macierzy.
 void City::fill_n_reduce()
 {

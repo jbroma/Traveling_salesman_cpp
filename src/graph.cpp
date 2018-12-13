@@ -82,7 +82,7 @@ Graph::edge_out_end(adj_matrix::vertex_iterator& it)
 
 void Graph::load_graph(std::ifstream& file)
 {
-    std::istream_iterator<int> it { file };
+    std::istream_iterator<int> it{ file };
     graph_ = std::make_unique<adj_matrix>(*it++);
     for (uint32_t i = 0; i < get_vsize(); ++i) {
         for (uint32_t j = 0; j < get_vsize(); ++j) {
@@ -136,7 +136,7 @@ void Graph::gen_random_complete_graph()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> weight_dist { 1, 100 };
+    std::uniform_int_distribution<> weight_dist{ 1, 100 };
     auto source_v_pair = boost::vertices(*graph_);
     std::for_each(source_v_pair.first, source_v_pair.second, [&](auto source) {
         auto target_v_pair = boost::vertices(*graph_);
@@ -184,7 +184,7 @@ void EdgePropertyWriter::operator()(std::ostream& out, const adj_matrix::edge_de
     if (tp_[e])
         out << "[label=\"" << wm_[e] << "\""
             << ", weight=\"" << wm_[e] << "\""
-            << ", color=\"red\", penwidth=\"1\"]";
+            << ", color=\"red\", penwidth=\"1\", arrowsize=\"1.5\"]";
 }
 
 void GraphPropertyWriter::operator()(std::ostream& out) const
@@ -193,7 +193,7 @@ void GraphPropertyWriter::operator()(std::ostream& out) const
         << "node [shape=oval, fixedsize=true, color=\"black\", style=\"solid\", "
         << "fontname=Helvetica, fontsize=10]\n"
         << "edge [labelfloat=true, arrowsize=\"0.5\", penwidth=\"0.3\", "
-        << "color=\"grey\", fontsize=8]\n";
+        << "color=\"grey\", fontsize=12]\n";
 }
 
 } // namespace mg

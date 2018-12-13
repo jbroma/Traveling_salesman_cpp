@@ -15,8 +15,8 @@ class City {
 
 public:
     City() = default;
-    City(const uint32_t index, const std::vector<std::vector<uint32_t>>& matrix, const uint32_t travel_cost);
-    City(const City& city, const uint32_t index, const uint32_t travel_cost);
+    City(const uint32_t index, std::vector<std::vector<uint32_t>>& matrix, const uint32_t travel_cost);
+    City(City& city, const uint32_t index, const uint32_t travel_cost);
     City(const City& city) = default;
     City(City&& city) = default;
     City& operator=(const City& rhs) = default;

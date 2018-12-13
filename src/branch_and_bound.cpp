@@ -11,21 +11,19 @@ BranchAndBound::BranchAndBound(mg::Graph& graph)
 plain_matrix BranchAndBound::get_plain_matrix()
 {
     plain_matrix matrix;
-    matrix.resize(graph_.get_vsize(), std::vector<uint32_t>(graph_.get_vsize()));
-    // revert to previous definition
+    matrix.resize(graph_.get_vsize(), std::vector<uint32_t>(graph_.get_vsize(), limits::max()));
     auto edge_range = graph_.e_begin();
     for (auto it = edge_range.first; it != edge_range.second; ++it) {
         matrix[graph_.get_source(*it)][graph_.get_target(*it)] = graph_.get_weight(it);
     }
-    return std::move(matrix);
+    return matrix;
 }
 
 Path BranchAndBound::dfs_run()
 {
-    //std::unique_ptr<Container> container{ new Stack(std::stack<City>()) };
     matrix_ = get_plain_matrix();
     std::unique_ptr<Container> container = std::make_unique<Stack>(std::stack<City>());
-    container->push(City(0, matrix_, 0));
+    container->push(City{ 0, matrix_, 0 });
     Path best_path;
     best_path.algo_name_ = "B&B - DFS";
     return run(container, best_path);
@@ -33,10 +31,9 @@ Path BranchAndBound::dfs_run()
 
 Path BranchAndBound::best_fs_run()
 {
-    //std::shared_ptr<Container> container{ new Priority_Queue(city_p_queue()) };
     matrix_ = get_plain_matrix();
     std::unique_ptr<Container> container = std::make_unique<Priority_Queue>(city_p_queue());
-    container->push(City(0, matrix_, 0));
+    container->push(City{ 0, matrix_, 0 });
     Path best_path;
     best_path.algo_name_ = "B&B - Best-FS";
     return run(container, best_path);
@@ -66,7 +63,7 @@ void BranchAndBound::handle_city(City& city, std::unique_ptr<Container>& contain
 void BranchAndBound::update_best_bound(City& city, Path& best_path)
 {
     if (city.get_bound() < best_bound_) {
-        std::string algo_name { best_path.algo_name_ };
+        std::string algo_name{ best_path.algo_name_ };
         best_bound_ = city.get_bound();
         best_path = city.get_path();
         best_path.algo_name_ = algo_name;
@@ -75,8 +72,8 @@ void BranchAndBound::update_best_bound(City& city, Path& best_path)
 
 void BranchAndBound::push_child_cities(City& parent_city, std::unique_ptr<Container>& container)
 {
-    uint32_t parent_index { parent_city.get_index() }, travel_cost;
-    std::vector<uint32_t> neighbours { parent_city.get_neighbours() };
+    uint32_t parent_index{ parent_city.get_index() }, travel_cost;
+    std::vector<uint32_t> neighbours{ parent_city.get_neighbours() };
 
     for (auto& neighbour : neighbours) {
         travel_cost = parent_city.get_travel_cost(parent_index, neighbour);
@@ -93,8 +90,8 @@ void BranchAndBound::finalize_path(Path& path)
 
 void BranchAndBound::calc_travel_cost(Path& path)
 {
-    uint32_t travel_c { 0 };
-    for (size_t i { 0 }; i < path.path_.size() - 1; ++i)
+    uint32_t travel_c{ 0 };
+    for (size_t i{ 0 }; i < path.path_.size() - 1; ++i)
         travel_c += matrix_[path.path_[i]][path.path_[i + 1]];
 
     path.cost_ = travel_c;
