@@ -55,7 +55,7 @@ public:
 
     adj_matrix::vertex_iterator v_begin();
     adj_matrix::vertex_iterator v_end();
-    std::pair<adj_matrix::edge_iterator, adj_matrix::edge_iterator> e_begin();
+    adj_matrix::edge_iterator e_begin();
     adj_matrix::edge_iterator e_end();
     adj_matrix::out_edge_iterator edge_out_begin(adj_matrix::vertex_iterator& it);
     adj_matrix::out_edge_iterator edge_out_end(adj_matrix::vertex_iterator& it);
@@ -66,6 +66,7 @@ public:
     void print_out_edges(std::ostream& os);
     void gen_random_complete_graph();
     void set_tsp_path(Path& path);
+    void clear_tsp_path();
     std::string get_graphviz();
 };
 

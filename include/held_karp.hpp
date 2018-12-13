@@ -26,9 +26,7 @@ private:
     std::vector<std::vector<uint32_t>> travel_vec_;
     bit_mask full_mask_;
 
-    void remove_loops();
     uint32_t h_k(bit_mask mask, uint32_t city);
-
     Path get_path(uint32_t cost);
 };
 

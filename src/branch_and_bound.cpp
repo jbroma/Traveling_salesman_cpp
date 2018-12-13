@@ -4,16 +4,15 @@ namespace alg {
 
 BranchAndBound::BranchAndBound(mg::Graph& graph)
     : graph_(graph)
-    , best_bound_(limits::max())
+    , best_bound_(u_lim::max())
 {
 }
 
 plain_matrix BranchAndBound::get_plain_matrix()
 {
     plain_matrix matrix;
-    matrix.resize(graph_.get_vsize(), std::vector<uint32_t>(graph_.get_vsize(), limits::max()));
-    auto edge_range = graph_.e_begin();
-    for (auto it = edge_range.first; it != edge_range.second; ++it) {
+    matrix.resize(graph_.get_vsize(), std::vector<uint32_t>(graph_.get_vsize(), u_lim::max()));
+    for (auto it = graph_.e_begin(); it != graph_.e_end(); ++it) {
         matrix[graph_.get_source(*it)][graph_.get_target(*it)] = graph_.get_weight(it);
     }
     return matrix;
@@ -25,17 +24,17 @@ Path BranchAndBound::dfs_run()
     std::unique_ptr<Container> container = std::make_unique<Stack>(std::stack<City>());
     container->push(City{ 0, matrix_, 0 });
     Path best_path;
-    best_path.algo_name_ = "B&B - DFS";
+    best_path.algo_name_ = "Branch&Bound - DFS";
     return run(container, best_path);
 }
 
 Path BranchAndBound::best_fs_run()
 {
     matrix_ = get_plain_matrix();
-    std::unique_ptr<Container> container = std::make_unique<Priority_Queue>(city_p_queue());
+    std::unique_ptr<Container> container = std::make_unique<Priority_Queue>(city_pq());
     container->push(City{ 0, matrix_, 0 });
     Path best_path;
-    best_path.algo_name_ = "B&B - Best-FS";
+    best_path.algo_name_ = "Branch&Bound - Best-FS";
     return run(container, best_path);
 }
 

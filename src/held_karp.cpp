@@ -52,7 +52,7 @@ Path HeldKarp::get_path(uint32_t cost)
         i_mask |= bit_mask(uint32_t(1) << index);
     }
     path.push_back(0);
-    return Path(path, cost, "DP");
+    return Path(path, cost, "Held-Karp");
 }
 
 } // namespace alg

@@ -8,9 +8,9 @@
 namespace alg {
 
 // TODO refactor to use templates
-using limits = std::numeric_limits<uint32_t>;
+using u_lim = std::numeric_limits<uint32_t>;
 using plain_matrix = std::vector<std::vector<uint32_t>>;
-using city_p_queue = std::priority_queue<City, std::vector<City>, City::compare>;
+using city_pq = std::priority_queue<City, std::vector<City>, City::compare>;
 
 class Container {
 
@@ -27,7 +27,7 @@ public:
 class Priority_Queue : public Container {
 
 public:
-    Priority_Queue(city_p_queue queue)
+    Priority_Queue(city_pq queue)
         : city_q { queue } {};
 
     City top() override { return city_q.top(); };
@@ -37,7 +37,7 @@ public:
     ~Priority_Queue() override = default;
 
 private:
-    city_p_queue city_q;
+    city_pq city_q;
 };
 
 class Stack : public Container {

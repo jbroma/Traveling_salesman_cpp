@@ -7,7 +7,7 @@
 
 namespace alg {
 
-using limits = std::numeric_limits<uint32_t>;
+using u_lim = std::numeric_limits<uint32_t>;
 using plain_matrix = std::vector<std::vector<uint32_t>>;
 
 class Reduction_Matrix {

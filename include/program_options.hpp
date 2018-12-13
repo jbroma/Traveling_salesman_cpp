@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __WIN32
+#include <windows.h>
+#endif
+
 #include <boost/program_options.hpp>
 #include <filesystem>
 #include <iostream>
@@ -18,6 +22,7 @@ class ProgramOptions {
     const size_t ERROR_IN_COMMAND_LINE = 1;
     const size_t ERROR_UNHANDLED_EXCEPTION = 2;
     const size_t ERROR_CONFLICTING_OPTIONS = 3;
+    const size_t RANDOM_DEFAULT = 10;
 
     int argument_count_;
     char** arguments_;
@@ -30,8 +35,8 @@ class ProgramOptions {
     std::string algorithm_name_;
     std::string input_file_;
     std::string output_file_;
-    size_t count_;
-    size_t random_vertices_;
+    int count_;
+    int random_vertices_;
 
     std::string get_help_string();
     void add_options_desc();

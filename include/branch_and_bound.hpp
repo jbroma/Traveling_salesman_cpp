@@ -14,9 +14,9 @@
 
 namespace alg {
 
-using limits = std::numeric_limits<uint32_t>;
+using u_lim = std::numeric_limits<uint32_t>;
 using plain_matrix = std::vector<std::vector<uint32_t>>;
-using city_p_queue = std::priority_queue<City, std::vector<City>, City::compare>;
+using city_pq = std::priority_queue<City, std::vector<City>, City::compare>;
 
 class BranchAndBound {
 
@@ -40,4 +40,5 @@ private:
     void finalize_path(Path& best_path);
     void calc_travel_cost(Path& path);
 };
-}
+
+} // namespace alg

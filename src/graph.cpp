@@ -58,9 +58,9 @@ adj_matrix::vertex_iterator Graph::v_end()
     return boost::vertices(*graph_).second;
 }
 
-std::pair<adj_matrix::edge_iterator, adj_matrix::edge_iterator> Graph::e_begin()
+adj_matrix::edge_iterator Graph::e_begin()
 {
-    return boost::edges(*graph_);
+    return boost::edges(*graph_).first;
 }
 
 adj_matrix::edge_iterator Graph::e_end()
@@ -155,6 +155,12 @@ void Graph::set_tsp_path(Path& path)
          ++current, ++prev) {
         tsp_path_map_[boost::edge(*prev, *current, *graph_).first] = true;
     }
+}
+
+void Graph::clear_tsp_path()
+{
+    for (auto it = e_begin(); it != e_end(); ++it)
+        tsp_path_map_[*it] = false;
 }
 
 std::string Graph::get_graphviz()

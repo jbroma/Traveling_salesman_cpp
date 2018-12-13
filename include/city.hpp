@@ -1,14 +1,14 @@
 #pragma once
 
-#include "path.hpp"
-#include "reduction_matrix.hpp"
-
 #include <algorithm>
 #include <vector>
 
+#include "path.hpp"
+#include "reduction_matrix.hpp"
+
 namespace alg {
 
-using limits = std::numeric_limits<uint32_t>;
+using u_lim = std::numeric_limits<uint32_t>;
 using plain_matrix = std::vector<std::vector<uint32_t>>;
 
 class City {
