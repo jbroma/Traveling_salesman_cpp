@@ -4,6 +4,9 @@ set(PROJECT_NAME TSP)
 
 project(${PROJECT_NAME})
 
+set(CMAKE_C_COMPILER "gcc-8")
+set(CMAKE_CXX_COMPILER "g++-8")
+
 set(CMAKE_CXX_FLAGS "-O3 -Wall -Werror -Wno-missing-braces -pedantic")
 set(CMAKE_CXX_STANDARD 17)
 
